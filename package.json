@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "live": "docker container run --rm -d --mount type=bind,source=$(realpath .),target=/content,ro=true -p 8080:80 mulekick/serve-static:latest > /tmp/static-container-id",
+    "die": "docker container stop $(cat /tmp/static-container-id) && rm /tmp/static-container-id",
     "test": "jest --coverage --noStackTrace --silent"
   },
   "jest": {

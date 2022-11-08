@@ -56,7 +56,12 @@ class ApiEntity {
 
 class Store {
   constructor() {
-    this.api = new Api({baseUrl: 'http://localhost:5678'})
+    // !!! fix connection to backend !!!
+    // - I run the backend on a virtual machine (192.168.1.12) and not on localhost
+    this.api = new Api({baseUrl: 'http://192.168.1.12:5678'});
+    
+    // this.api = new Api({baseUrl: 'http://localhost:5678'})
+    // !!! fix connection to backend !!!
   }
 
   user = uid => (new ApiEntity({key: 'users', api: this.api})).select({selector: uid})

@@ -145,9 +145,22 @@ export default class {
       this.counter ++
     }
 
+    // !!! FIX [Bug Hunt] - Dashboard 15/07/2020 !!!
+    // fix the functionality :
+    // - the code is written in such a way that a new listener is attached to each ticket 'click' event each time a category is opened
+    // - so we fix it by preventing the execution of any 'click' event listener after the first one is executed
+    bills.forEach(b => $(`#open-bill${b.id}`).on(`click`, ev => {
+            // there ...
+            ev.stopImmediatePropagation();
+            this.handleEditTicket(ev, b, bills);
+    }));
+
+    /*
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
+    */
+    // !!! FIX [Bug Hunt] - Dashboard 15/07/2020 !!!
 
     return bills
 

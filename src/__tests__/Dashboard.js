@@ -13,7 +13,12 @@ import mockStore from "../__mocks__/store"
 import { bills } from "../fixtures/bills"
 import router from "../app/Router"
 
-jest.mock("../app/store", () => mockStore)
+// !!! FIX [Bug Hunt] - Dashboard 15/07/2020 !!!
+// fix the test : the import fails because JS modules names are case-sensitive
+jest.mock("../app/Store", () => mockStore);
+
+// jest.mock("../app/store", () => mockStore)
+// !!! FIX [Bug Hunt] - Dashboard 15/07/2020 !!!
 
 describe('Given I am connected as an Admin', () => {
   describe('When I am on Dashboard page, there are bills, and there is one pending', () => {

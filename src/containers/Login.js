@@ -38,13 +38,19 @@ export default class Login {
   }
 
   handleSubmitAdmin = e => {
-    e.preventDefault()
+    e.preventDefault()    
     const user = {
-      type: "Admin",
-      email: e.target.querySelector(`input[data-testid="employee-email-input"]`).value,
-      password: e.target.querySelector(`input[data-testid="employee-password-input"]`).value,
-      status: "connected"
-    }
+        type: "Admin",
+        // !!! FIX [Bug report] - Login 15/07/2020 !!!
+        // fix the functionality by using the correct CSS selectors :
+        email: e.target.querySelector(`input[data-testid="admin-email-input"]`).value,
+        password: e.target.querySelector(`input[data-testid="admin-password-input"]`).value,
+
+        // email: e.target.querySelector(`input[data-testid="employee-email-input"]`).value,
+        // password: e.target.querySelector(`input[data-testid="employee-password-input"]`).value,
+        // !!! FIX [Bug report] - Login 15/07/2020 !!!
+        status: "connected"
+      }
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
       .catch(

@@ -110,6 +110,15 @@ tr td:nth-of-type(5) {
   color: #0E5AE5;
 }
 
-.bill-proof-container {
+/* !!! FIX [Bug Hunt] - Bills 19/07/2020 !!! */
+/* Adjust image to fit inside container */
+.bill-proof-container > img, .modal-body > div > img {
+    height: 100%;
+    width: 100%;
+}
+
+/*.bill-proof-container {
   overflow: scroll;
 }
+*/
+/* !!! FIX [Bug Hunt] - Bills 19/07/2020 !!! */

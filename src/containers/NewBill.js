@@ -15,6 +15,45 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+
+    // !!! FIX [Bug Hunt] - Bills 19/07/2020 !!!
+    // fix the functionality by rewriting the function ...
+    handleChangeFile = async e => {
+        try {
+
+                e.preventDefault();
+
+                const
+                    // - test the file extension against the correct formats 
+                    match = e.target.value.match(/^.+\\(?<file>.+\.(?:jpe?g|png))$/ui),
+                    {email} = JSON.parse(localStorage.getItem(`user`));
+
+                if (match === null)
+                    // - block the upload if file extension does not match
+                    throw new Error(`please upload a jpg, jpeg or png image.`);
+
+                const f = new FormData();  
+                f.append(`file`, e.target.files.item(0));
+                f.append(`email`, email);
+
+                const {fileUrl, key} = await this.store.bills()
+                    .create({data: f, headers: {noContentType: true}});
+
+                Object.assign(this, {
+                    billId: key,
+                    fileUrl: fileUrl,
+                    fileName: match.pop()
+                });
+
+            } catch (err) {
+                // - log error message to console
+                console.error(`error occured: ${ err.message }`);
+                // - reset file value
+                e.target.value = ``;
+            }
+        }
+
+    /*
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
@@ -40,6 +79,9 @@ export default class NewBill {
         this.fileName = fileName
       }).catch(error => console.error(error))
   }
+    */
+    // !!! FIX [Bug Hunt] - Bills 19/07/2020 !!!
+
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)

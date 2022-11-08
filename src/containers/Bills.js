@@ -24,7 +24,9 @@ export default class {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
-    $('#modaleFile').modal('show')
+    // $('#modaleFile').modal('show')
+
+    if (typeof $('#modaleFile').modal === 'function') $('#modaleFile').modal('show')
   }
 
   getBills = () => {
@@ -33,12 +35,19 @@ export default class {
       .bills()
       .list()
       .then(snapshot => {
-        const bills = snapshot
+        const bills = snapshot        
           .map(doc => {
             try {
               return {
                 ...doc,
-                date: formatDate(doc.date),
+                // !!! FIX [Bug report] - Bills 15/07/2020 !!!
+                // fix the functionality :
+                // - dates are formatted and become non-parseable a soon as the list() promise is resolved 
+                // - we will format them at a later stage so they remain parseable
+                date: doc.date,
+
+                // date: formatDate(doc.date),
+                // !!! FIX [Bug report] - Bills 15/07/2020 !!!
                 status: formatStatus(doc.status)
               }
             } catch(e) {

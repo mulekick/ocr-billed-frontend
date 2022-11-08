@@ -4,12 +4,17 @@ import LoadingPage from "./LoadingPage.js"
 
 import Actions from './Actions.js'
 
+// !!! FIX [Bug report] - Bills 15/07/2020 !!!
+// import date formatting function
+import { formatDate } from "../app/format.js"
+// fix the functionality :
+// - date values are formatted at rendering time
 const row = (bill) => {
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td>${formatDate(bill.date)}</td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -18,15 +23,20 @@ const row = (bill) => {
     </tr>
     `)
   }
+// - dates are still parseable at this stage, so we sort them accordingly before formatting 
+const rows = d => d && d.length ? d.sort((a, b) => Date.parse(a[`date`]) < Date.parse(b[`date`]) ? 1 : -1).map(row).join(``) : ``;
 
+/*
 const rows = (data) => {
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
+*/
+// !!! FIX [Bug report] - Bills 15/07/2020 !!!
 
 export default ({ data: bills, loading, error }) => {
   
   const modal = () => (`
-    <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modaleFile" data-testid="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
