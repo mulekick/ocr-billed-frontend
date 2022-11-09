@@ -24,9 +24,13 @@ export default class {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
-    // $('#modaleFile').modal('show')
 
+    // !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
+    // - have to do this for the tests to run properly, as it has been done in /src/containers/Dashboard.js too ... 
     if (typeof $('#modaleFile').modal === 'function') $('#modaleFile').modal('show')
+    
+    // $('#modaleFile').modal('show')
+    // !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
   }
 
   getBills = () => {
