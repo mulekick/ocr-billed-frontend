@@ -65,7 +65,9 @@ export default class {
               }
             }
           })
-          console.log('length', bills.length)
+          // !!! remove debug leftovers !!!
+          // console.log('length', bills.length)
+          // !!! remove debug leftovers !!!
         return bills
       })
     }
