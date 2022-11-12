@@ -1,5 +1,12 @@
 import VerticalLayout from './VerticalLayout.js'
 
+
+// !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
+// Plus, as opposed to BillsUI and DashboardUI, there are no 'default'
+// or 'error' parameters there, which means that the frontend is not
+// supposed to display any error message when the api call for creating
+// a new bill fails ...
+// !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
 export default () => {
 
   return (`

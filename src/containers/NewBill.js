@@ -103,7 +103,12 @@ export default class NewBill {
       status: 'pending'
     }
     this.updateBill(bill)
+    // !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
+    // Note : the following line will execute and redirect user to the bills list
+    // regardless of which HTTP code the api call returns - it is thus impossible to
+    // write frontend tests in NewBills.js for when the API returns a 404 or a 500
     this.onNavigate(ROUTES_PATH['Bills'])
+    // !!! FIX [Ajout de tests unitaires et d'intégration] 15/07/2020 !!!
   }
 
   // not need to cover this function by tests
